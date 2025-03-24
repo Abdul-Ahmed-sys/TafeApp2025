@@ -5,6 +5,8 @@
     <Grid>
         <Label Content="Total Charge After Wrapping ($5)" />
         <TextBox Name="wrapChargeTextBox" />
+        <Label Content="Total Charge After GST (x1.1)" />
+        <TextBox Name="gstChargeTextBox" />
         <Label Content="Total Charge after adding &#xA;the delivery charge ($25)" />
         <TextBox Name="totalChargeTextBox" />
         <Label Content="Product:" HorizontalAlignment="Left" Height="30" Margin="46,37,0,0" VerticalAlignment="Top" Width="61"/>
