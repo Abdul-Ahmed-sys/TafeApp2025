@@ -1,17 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace ProductApps
 {
@@ -33,13 +22,19 @@ namespace ProductApps
             {
                 cProduct = new Product(Convert.ToDecimal(priceTextBox.Text), Convert.ToInt16(quantityTextBox.Text));
                 cProduct.calTotalPayment();
-                totalPaymentTextBlock.Text = Convert.ToString(cProduct.TotalPayment);
-                decimal totalCharge = cProduct.TotalPayment + 25.00m;
-                totalChargeTextBox.Text = totalCharge.ToString("C");  // Output to the new TextBox
-                decimal totalChargeWithWrap = totalCharge + 5.00m;
-                wrapChargeTextBox.Text = totalChargeWithWrap.ToString("C");
-                decimal totalChargeWithGST = totalChargeWithWrap * 1.1m;
-                gstChargeTextBox.Text = totalChargeWithGST.ToString("C");
+                totalPaymentTextBlock.Text = cProduct.TotalPayment.ToString("C");
+
+                // Add Wrap Charge ($5.00)
+                decimal totalAfterWrap = cProduct.TotalPayment + 5.00m;
+                wrapChargeTextBox.Text = totalAfterWrap.ToString("C");
+
+                // Add Delivery Charge ($25.00)
+                decimal totalAfterDelivery = totalAfterWrap + 25.00m;
+                totalChargeTextBox.Text = totalAfterDelivery.ToString("C");
+
+                // Add GST (x1.1)
+                decimal totalAfterGST = totalAfterDelivery * 1.1m;
+                gstChargeTextBox.Text = totalAfterGST.ToString("C");
             }
             catch (FormatException)
             {
@@ -53,6 +48,9 @@ namespace ProductApps
             priceTextBox.Text = "";
             quantityTextBox.Text = "";
             totalPaymentTextBlock.Text = "";
+            wrapChargeTextBox.Text = "";
+            totalChargeTextBox.Text = "";
+            gstChargeTextBox.Text = "";
         }
 
         private void closeButton_Click(object sender, RoutedEventArgs e)
